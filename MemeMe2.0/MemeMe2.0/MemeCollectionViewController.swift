@@ -30,9 +30,9 @@ class MemeCollectionViewController: UICollectionViewController {
         return self.memes.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MemeCollectionViewCell", for: indexPath) as! MemeCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MemesCollectionViewCell", for: indexPath) as! MemeCollectionViewCell
         let meme = self.memes[(indexPath as NSIndexPath).row]
-        cell.memedImage.image = meme.memedImage
+        cell.memedImage?.image = meme.memedImage
         return cell
     }
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath:IndexPath) {

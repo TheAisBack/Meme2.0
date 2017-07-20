@@ -9,8 +9,7 @@ import UIKit
 class MemeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     var memes: [Meme]!
-    
-    @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,11 +21,16 @@ class MemeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return self.memes.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MemeCell")!
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemeTableViewCell")! as! MemeTableViewCell
+        let meme = self.memes[(indexPath as NSIndexPath).row]
+        cell.topText?.text = meme.topText
+        cell.bottomText?.text = meme.bottomText
+        cell.memeImage?.image = meme.memedImage
+        return cell        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailController = self.storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
+        detailController.memes = memes[(indexPath as NSIndexPath).row]
         self.navigationController!.pushViewController(detailController, animated: true)
     }
 }

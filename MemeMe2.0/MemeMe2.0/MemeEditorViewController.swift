@@ -119,7 +119,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         controller.completionWithItemsHandler = {
             activity, completed, items, error in
             if completed {
-                self.save(memedImage: memedImage)
+                self.save()
                 self.dismiss(animated: false, completion: nil)
             }
         }
@@ -154,13 +154,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         return memedImage
     }
-    func save(memedImage: UIImage) {
+    func save() {
         // Create the meme
         let meme = Meme(
             topText: top.text!,
             bottomText: bottom.text!,
             originalImage: imagePickerView.image!,
-            memedImage: memedImage
+            memedImage: generateMemedImage()
         )
         
         // Add it to the memes array in the Application Delegate
