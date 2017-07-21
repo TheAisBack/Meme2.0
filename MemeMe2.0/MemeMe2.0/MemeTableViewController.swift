@@ -15,13 +15,18 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         memes = appDelegate.memes
-        self.navigationItem.leftBarButtonItem = self.editButtonItem;
+        //self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        memes = appDelegate.memes
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.memes.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MemeTableViewCell")! as! MemeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemeTableViewCell", for: indexPath)  as! MemeTableViewCell
         let meme = self.memes[(indexPath as NSIndexPath).row]
         cell.topText?.text = meme.topText
         cell.bottomText?.text = meme.bottomText
