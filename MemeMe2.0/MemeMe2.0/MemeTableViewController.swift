@@ -26,7 +26,7 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         return self.memes.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MemeTableViewCell", for: indexPath)  as! MemeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemeTableViewCell") as! MemeTableViewCell
         let meme = self.memes[(indexPath as NSIndexPath).row]
         cell.topText?.text = meme.topText
         cell.bottomText?.text = meme.bottomText

@@ -1,4 +1,3 @@
-//
 //  MemeCollectionViewController.swift
 //  MemeMe2.0
 //
