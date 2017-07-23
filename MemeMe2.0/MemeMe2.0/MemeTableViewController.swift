@@ -15,9 +15,8 @@ class MemeTableViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         memes = appDelegate.memes
-        //self.navigationItem.leftBarButtonItem = self.editButtonItem;
     }
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         memes = appDelegate.memes
