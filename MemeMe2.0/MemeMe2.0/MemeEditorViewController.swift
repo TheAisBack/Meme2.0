@@ -106,9 +106,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     // Cancel and Share
     @IBAction func cancel(_ sender: Any) {
-        top.text = "TOP"
-        bottom.text = "BOTTOM"
-        imagePickerView.image = nil
+        self.dismiss(animated: true, completion: nil)
     }
     @IBAction func share(sender: UIBarButtonItem) {
         
