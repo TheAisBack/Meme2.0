@@ -36,33 +36,40 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         configure(textField: bottom, text: "BOTTOM")
         checkShareButton()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
+    
     // Keyboard functions
     func keyboardWillShow(_ notification: Notification) {
         if bottom.isFirstResponder {
             view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
+    
     func keyboardWillHide(_ notification: Notification) {
         self.view.frame.origin.y = 0
     }
+    
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
     }
+    
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
     }
+    
     func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
@@ -73,17 +80,20 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         textField.resignFirstResponder()
         return true
     }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text == "TOP" || textField.text == "BOTTOM" {
             textField.text = ""
         }
     }
+    
     func configure(textField: UITextField, text: String) {
         textField.delegate = self
         textField.defaultTextAttributes = memeTextAttributes
         textField.text = text
         textField.textAlignment = .center
     }
+    
     // Picking images from album and camera
     func chooseSourceType(sourceType: UIImagePickerControllerSourceType) {
         let pickerController = UIImagePickerController()
@@ -91,15 +101,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         pickerController.sourceType = sourceType
         present(pickerController, animated: true, completion: nil)
     }
+    
     func checkShareButton() {
         shareButton.isEnabled = false
         if (self.imagePickerView.image != nil) {
             shareButton.isEnabled = true
         }
     }
+    
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
         chooseSourceType(sourceType: .camera)
     }
+    
     @IBAction func pickAnImage(_ sender: Any) {
         chooseSourceType(sourceType: .photoLibrary)
     }
@@ -108,6 +121,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func share(sender: UIBarButtonItem) {
         
         let memedImage = generateMemedImage()
@@ -123,6 +137,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         }
         self.present(controller, animated: true, completion: nil)
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let memedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = memedImage
@@ -130,6 +145,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             shareButton.isEnabled = true
         }
     }
+    
     // Meme Object
     func showBarHideBar(_ animated: Bool) {
         self.toolBar.isHidden = animated
@@ -152,6 +168,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         return memedImage
     }
+    
     func save() {
         // Create the meme
         let meme = Meme(
